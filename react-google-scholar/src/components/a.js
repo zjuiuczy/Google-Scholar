@@ -30,7 +30,7 @@ export class article extends Component {
                     ({loading, error, data}) => {
                         if (loading) return <p>Loading...</p>;
                         if (error) return `Error! ${error.message}`;
-                        const {title, citedBy, citations, pub_year, pub_number, pub_publisher, pub_url, journal} = data.Article;
+                        const {title, citedBy, citations, pub_year, eprint, pub_number, pub_publisher, pub_url, journal} = data.Article;
                         return <div>
                             <h1 className="display-4 my-3">
                                 <span className="text-dark">Google Scholar:</span>
@@ -54,6 +54,9 @@ export class article extends Component {
                                         pub_year: {pub_year}
                                     </li>
                                     <li className="list-group-item">
+                                        eprint: {eprint}
+                                    </li>
+                                    <li className="list-group-item">
                                         pub_number: {pub_number}
                                     </li>
                                     <li className="list-group-item">
@@ -74,11 +77,15 @@ export class article extends Component {
                                     </li>
                                 </ul>
                                 <hr />
-                                <Link to={`/delete/${article_id}`} className="btn btn-secondary">
+                                <Link to={`/update/${article_id}`} className="btn btn-primary">
+                                Update
+                                </Link>
+                                <hr />
+                                <Link to={`/delete/${article_id}`} className="btn btn-primary">
                                 Delete
                                 </Link>
                                 <hr />
-                                <Link to="/" className="btn btn-secondary">
+                                <Link to="/" className="btn btn-primary">
                                 Back
                                 </Link>
                                 

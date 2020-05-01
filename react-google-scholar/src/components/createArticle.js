@@ -2,7 +2,23 @@ import React, {Component} from 'react';
 import gql from 'graphql-tag';
 import { Mutation, graphql } from 'react-apollo';
 import { Link, withRouter } from 'react-router-dom';
-//import {CREATE_ARTICLE_QUERY} from './queries/ArticleQueries';
+
+const CREATE_ARTICLE_QUERY = gql`
+    mutation createArticle($title: String!, $citedBy: String!, $citations: ID!, $pub_year: ID!, $eprint: String!, $pub_number: ID!, $pub_publisher: String!, $pub_url: String!, $journal: String! ){
+        createArticle(
+            title: $title, 
+            citedBy: $citedBy, 
+            citations: $citations, 
+            pub_year: $pub_year, 
+            eprint: $eprint, 
+            pub_number: $pub_number, 
+            pub_publisher: $pub_publisher, 
+            pub_url: $pub_url, 
+            journal: $journal
+        )
+        
+    }
+`;
 
 class createArticle extends Component{
     constructor(props) {

@@ -24,7 +24,7 @@ export default function ArticleItem({Articles:{article_id,
         <p>CitedBy: {citedBy}</p>
     </div>
     <div className="col-md-3">
-        <Link to={`/article/${article_id}`} className="btn btn-secondary">Article Details</Link>
+        <Link to={`/article/${article_id}`} className="btn btn-primary">Article Details</Link>
     </div>
     </div>
     </div>

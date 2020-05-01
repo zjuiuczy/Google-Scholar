@@ -8,10 +8,12 @@ import Article from './components/Article';
 import article from './components/a';
 import createArticle from './components/createArticle';
 import deleteArticle from './components/deleteArticle';
+import updateArticle from './components/updateArticle';
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
 });
+
 
 const App = () => (
   <ApolloProvider client={client}>
@@ -43,45 +45,11 @@ const App = () => (
         <Route exact path="/article/:article_id" component={article} />
         <Route exact path="/create" component={createArticle} />
         <Route exact path="/delete/:article_id" component={deleteArticle} />
+        <Route exact path="/update/:article_id" component={updateArticle} />
     </div>
     </Router>
   </ApolloProvider>
 );
-
-
-// const App = () => (
-//   <ApolloProvider client={client}>
-//     <div className="container">
-//       <nav className="navbar navbar-dark bg-primary">
-//         <a className="navbar-brand" href="#">Team Ace: Google Scholar Project</a>
-//       </nav>
-//       <div>
-//         <Articles />
-//       </div>
-//     </div>
-//   </ApolloProvider>
-// );
-
-/*function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}*/
 
 export default App;
 

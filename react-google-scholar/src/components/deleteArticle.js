@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import gql from 'graphql-tag';
-import { Mutation, graphql } from 'react-apollo';
-import { Link, withRouter } from 'react-router-dom';
+import { Mutation} from 'react-apollo';
 
 const DELETE_ARTICLE_QUERY = gql`
     mutation deleteArticle($article_id: ID!){
@@ -25,7 +24,7 @@ class deleteArticle extends Component{
                 mutation = { DELETE_ARTICLE_QUERY } 
                 variables = { { article_id } } 
                 onCompleted = { () => window.location.replace("../")}>
-                {postMutation => <button onClick={ () => this.deleteArticle(postMutation)}>DELETE</button>}               
+                {postMutation => <button onClick={ () => this.deleteArticle(postMutation)} className="btn btn-primary">DELETE</button>}               
                 </Mutation> 
             </div>
         )
