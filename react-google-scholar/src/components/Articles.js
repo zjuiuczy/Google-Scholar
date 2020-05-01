@@ -8,12 +8,16 @@ import Key from './Key';
 const ARTICLES_QUERY = gql`
   query ArticlesQuery{
     Articles {
-          article_id,
-          title, 
-          citedBy, 
-          citations, 
-          pub_url, 
-          journal
+      article_id,
+      title, 
+      citedBy, 
+      citations, 
+      pub_year, 
+      eprint, 
+      pub_number, 
+      pub_publisher, 
+      pub_url, 
+      journal
     }
   }  
 `;

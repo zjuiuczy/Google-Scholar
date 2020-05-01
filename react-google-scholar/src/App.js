@@ -6,7 +6,8 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import Article from './components/Article';
 import article from './components/a';
-
+import createArticle from './components/createArticle';
+import deleteArticle from './components/deleteArticle';
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -25,13 +26,10 @@ const App = () => (
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Create</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Test</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="/create">Create</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -43,6 +41,8 @@ const App = () => (
       
         <Route exact path="/" component={Articles} />
         <Route exact path="/article/:article_id" component={article} />
+        <Route exact path="/create" component={createArticle} />
+        <Route exact path="/delete/:article_id" component={deleteArticle} />
     </div>
     </Router>
   </ApolloProvider>

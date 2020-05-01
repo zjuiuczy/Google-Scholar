@@ -74,9 +74,14 @@ export class article extends Component {
                                     </li>
                                 </ul>
                                 <hr />
+                                <Link to={`/delete/${article_id}`} className="btn btn-secondary">
+                                Delete
+                                </Link>
+                                <hr />
                                 <Link to="/" className="btn btn-secondary">
                                 Back
                                 </Link>
+                                
                         </div>
                     }
                 }

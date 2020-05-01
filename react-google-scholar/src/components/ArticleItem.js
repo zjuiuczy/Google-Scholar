@@ -1,7 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-export default function ArticleItem({Articles:{article_id, title, citedBy, citations, pub_url}}){
+export default function ArticleItem({Articles:{article_id,
+    title, 
+    citedBy, 
+    citations, 
+    pub_year, 
+    eprint, 
+    pub_number, 
+    pub_publisher, 
+    pub_url, 
+    journal}}){
     return <div className="card card-body mb-3">
     <div className="row">
     <div className="col-md-9">
