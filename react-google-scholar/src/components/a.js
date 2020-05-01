@@ -3,6 +3,64 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
+import * as d3 from "d3";
+
+var neo4japi = require('./neo4jApi');
+
+
+function renderGraph(article_id) {
+    var width = 200, height = 200;
+    var force = d3.layout.force()
+      .charge(-200).linkDistance(30).size([width, height]);
+  
+    var svg = d3.select("#graph").append("svg")
+      .attr("width", "20%").attr("height", "20%")
+      .attr("pointer-events", "all");
+  
+    neo4japi
+      .getGraph(article_id)
+      .then(graph => {
+        force.nodes(graph.nodes).links(graph.links).start();
+  
+        var link = svg.selectAll(".link")
+          .data(graph.links).enter()
+          .append("line").attr("class", "link");
+  
+        var node = svg.selectAll(".node")
+          .data(graph.nodes).enter()
+          .append("circle")
+          .attr("class", d => {
+            return "node " + d.label
+          })
+          .attr("r", 10)
+          .call(force.drag);
+  
+        // html title attribute
+        node.append("title")
+          .text(d => {
+            return d.title;
+          });
+  
+        // force feed algo ticks
+        force.on("tick", () => {
+          link.attr("x1", d => {
+            return d.source.x;
+          }).attr("y1", d => {
+            return d.source.y;
+          }).attr("x2", d => {
+            return d.target.x;
+          }).attr("y2", d => {
+            return d.target.y;
+          });
+  
+          node.attr("cx", d => {
+            return d.x;
+          }).attr("cy", d => {
+            return d.y;
+          });
+        });
+      });
+  }
 
 
 const ARTICLE_QUERY = gql`
@@ -24,6 +82,11 @@ const ARTICLE_QUERY = gql`
 export class article extends Component {
     render(){
         let {article_id} = this.props.match.params;
+        console.log(neo4japi.getArticles(article_id));
+        let {relatedArticles} = neo4japi.getArticles(article_id);
+        console.log(relatedArticles);
+        //renderGraph(article_id);
+        console.log('test');
         return (
             <Fragment>
                 <Query query={ARTICLE_QUERY} variables={{article_id}}>{
@@ -36,8 +99,13 @@ export class article extends Component {
                                 <span className="text-dark">Google Scholar:</span>
                                     {title}
                             </h1>
+                            <div id="graph">
+                            </div>
                             <h4 className="mb-3">Scholar Details</h4>
                                 <ul className="list-group">
+                                    <li className="list-group-item">
+                                        Article ID: {article_id}
+                                    </li>
                                     <li className="list-group-item">
                                         Title: {title}
                                     </li>
@@ -75,6 +143,9 @@ export class article extends Component {
                                     <li className="list-group-item">
                                         Journal : {journal}
                                     </li>
+                                    <li className="list-group-item">
+                                        Related Articles : {relatedArticles}
+                                    </li>
                                 </ul>
                                 <hr />
                                 <Link to={`/update/${article_id}`} className="btn btn-primary">
@@ -88,8 +159,8 @@ export class article extends Component {
                                 <Link to="/" className="btn btn-primary">
                                 Back
                                 </Link>
-                                
                         </div>
+                        
                     }
                 }
                 </Query>
