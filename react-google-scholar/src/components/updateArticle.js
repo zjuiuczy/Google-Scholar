@@ -46,21 +46,12 @@ class updateArticle extends Component{
                     if (error) return `Error! ${error.message}`;
                     let title,citedBy,citations,pub_year,eprint,pub_number,pub_publisher,pub_url,journal;
                     let input = {
-                        article_id: article_id,
-                        title: "",
-                        citedBy: "",
-                        citations: "",
-                        pub_year: "",
-                        eprint: "",
-                        pub_number: "",
-                        pub_publisher: "",
-                        pub_url:"",
-                        journal: ""
+                        article_id: article_id
                     };
                     return (
                         <Mutation mutation={UPDATE_ARTICLE_QUERY} 
-                        key={data.article_id}
-                        onCompleted={() => window.location.replace("./create")}
+                        key={article_id}
+                        onCompleted={() => window.location.reload()}
                         //onCompleted={() => this.props.history.push('/')}
                         >
                         {(updateArticle, {loading, error}) =>(
@@ -72,21 +63,30 @@ class updateArticle extends Component{
                                     <div className="panel-boday">
                                         <h4><Link to={`/article/${article_id}`} className="btn btn-primary">Back</Link></h4>
                                         <form onSubmit={ e => {
-                                            // input ={
-                                            //     article_id:article_id,
-                                            //     title: title.value,
-                                            //     citedBy: citedBy.value,
-                                            //     citations: citations.value,
-                                            //     pub_year: pub_year.value,
-                                            //     eprint: eprint.value,
-                                            //     pub_number: pub_number.value,
-                                            //     pub_publisher: pub_publisher.value,
-                                            //     pub_url:pub_url.value,
-                                            //     journal: journal.value
-                                            // };
+                                             input ={
+                                                 title: title.value,
+                                                 citedBy: citedBy.value,
+                                                 citations: citations.value,
+                                                 pub_year: pub_year.value,
+                                                 eprint: eprint.value,
+                                                 pub_number: pub_number.value,
+                                                 pub_publisher: pub_publisher.value,
+                                                 pub_url:pub_url.value,
+                                                 journal: journal.value,
+                                                 article_id:article_id
+                                             };
                                             e.preventDefault();
-                                            updateArticle({variables: {input}});
-                                            title.value = "";
+                                            updateArticle({variables: {title: title.value,
+                                                citedBy: citedBy.value,
+                                                citations: citations.value,
+                                                pub_year: pub_year.value,
+                                                eprint: eprint.value,
+                                                pub_number: pub_number.value,
+                                                pub_publisher: pub_publisher.value,
+                                                pub_url:pub_url.value,
+                                                journal: journal.value,
+                                                article_id:article_id}});
+                                            /*title.value = "";
                                             citedBy.value = "";
                                             citations.value = "";
                                             pub_year.value = "";
@@ -94,7 +94,7 @@ class updateArticle extends Component{
                                             pub_number.value = "";
                                             pub_publisher.value = "";
                                             pub_url.value = "";
-                                            journal.value = "";
+                                            journal.value = "";*/
                                         }
                                         }>
                                         <div className="form-group">
